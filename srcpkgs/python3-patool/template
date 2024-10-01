@@ -1,0 +1,13 @@
+# Template file for 'python3-patool'
+pkgname=python3-patool
+version=3.0.0
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-setuptools python3-wheel"
+depends="python3"
+short_desc="Portable archive file manager"
+maintainer="fanyx <fanyx@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/wummel/patool"
+distfiles="${PYPI_SITE}/p/patool/patool-${version}.tar.gz"
+checksum=0f30b1a3e8bc7694dcd33a6538ab50194d9c46f2e5e71fd5e3cf83dd829199b4
