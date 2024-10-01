@@ -1,0 +1,13 @@
+# Template file for 'python3-FVS'
+pkgname=python3-FVS
+version=0.3.4
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-setuptools python3-wheel"
+depends="python3 python3-orjson"
+short_desc="File Versioning System with hash comparison, deduplication and data storage"
+maintainer="fanyx <fanyx@posteo.net>"
+license="MIT"
+homepage="https://github.com/mirkobrombin/FVS"
+distfiles="${PYPI_SITE}/F/FVS/FVS-${version}.tar.gz"
+checksum=c987741f37706ea07d91ec498c145162676ca16b59b5c8c2351cf464954ce422
