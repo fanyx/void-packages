@@ -1,0 +1,13 @@
+# Template file for 'python3-icoextract'
+pkgname=python3-icoextract
+version=0.1.6
+revision=1
+build_style=python3-pep517
+hostmakedepends="python3-setuptools python3-wheel"
+depends="python3 python3-pefile"
+short_desc="Extract icons from Windows PE files"
+maintainer="fanyx <fanyx@posteo.net>"
+license="MIT"
+homepage="https://github.com/jlu5/icoextract"
+distfiles="${PYPI_SITE}/i/icoextract/icoextract-${version}.tar.gz"
+checksum=492f27ea5a3a22e56ca40a2e2dec8a7c35c1042e8b257ca0745367c56b1f56fa
