@@ -1,0 +1,19 @@
+# Template file for 'gnome-bottles'
+pkgname=gnome-bottles
+version=51.20
+revision=1
+build_style=meson
+configure_args="-Dprofile=default"
+build_helper=gir
+hostmakedepends="pkg-config blueprint-compiler gettext desktop-file-utils"
+makedepends="gtk4-devel libadwaita-devel"
+depends="python3-chardet python3-charset-normalizer python3-pathvalidate
+ python3-curl python3-requests python3-Markdown python3-orjson python3-cairo
+ python3-gobject python3-idna python3-urllib3 python3-certifi python3-pefile
+ python3-icoextract python3-patool python3-FVS vkBasalt"
+short_desc="Run Windows software and games on Linux"
+maintainer="fanyx <fanyx@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://usebottles.com/"
+distfiles="https://github.com/bottlesdevs/Bottles/archive/${version}.tar.gz"
+checksum=f48a5231253b01c7465c9dd2ea94bea90943fc2562019e3a0f4b542aa44b9f82
