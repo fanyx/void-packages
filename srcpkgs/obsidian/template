@@ -1,0 +1,25 @@
+# Template file for 'obsidian'
+pkgname=obsidian
+version=1.7.7
+revision=1
+#archs="i686 x86_64"
+short_desc="Private and flexible writing app that adapts to the way you think"
+maintainer="fanyx <fanyx@posteo.net>"
+license="custom:Proprietary"
+homepage="https://obsidian.md/"
+distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian_${version}_amd64.deb"
+checksum=e41269fa5f120612cb8ba3cbb8a22b1d5c5d9969c4e9b2f9f802fd0141de6a89
+
+do_install() {
+	vbin ${FILESDIR}/obsidian-wrapper.sh obsidian
+
+	vmkdir usr/lib/obsidian
+	vcopy opt/Obsidian/* usr/lib/obsidian
+
+	vmkdir usr/share
+	vsed -i -e 's/Exec=.*/Exec=obsidian/' usr/share/applications/obsidian.desktop
+	vcopy usr/share/applications usr/share/
+	vcopy usr/share/icons usr/share/
+
+	vlicense ${FILESDIR}/license
+}
