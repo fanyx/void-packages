@@ -1,0 +1,109 @@
+# Template file for 'hedgedoc'
+pkgname=hedgedoc
+version=1.10.3
+revision=1
+# build_style=gnu-configure
+#conf_files=""
+make_dirs="/var/"
+hostmakedepends="nodejs yarn"
+depends="yarn nodejs"
+short_desc="Web-based, Self-hosted, collaborative markdown editor"
+maintainer="Hendrik Boll <fanyx@posteo.net>"
+license="AGPL-3.0-or-later"
+homepage="https://hedgedoc.org/"
+changelog="https://raw.githubusercontent.com/hedgedoc/hedgedoc/refs/heads/master/CHANGELOG.md"
+distfiles="https://github.com/hedgedoc/hedgedoc/archive/${version}.tar.gz"
+checksum=72a3dbf1f93f1cbe89c959a741eb20138574c86b2872599337ad28d31284691c
+make_dirs="/var/lib/hedgedoc/uploads 0750 _hedgedoc _hedgedoc"
+conf_files="/usr/lib/hedgedoc/config.json"
+
+system_accounts="_hedgedoc"
+_hedgedoc_homedir="/var/lib/hedgedoc"
+
+
+do_build() {
+	yarn install --immutable
+	yarn run build
+}
+
+post_build() {
+	find . -type f \
+		\( \
+		-iname '*Makefile*' -o \
+		-iname '*armv*' -o \
+		-iname '*.cache' -o \
+		-iname '*appveyor.yml' -o \
+		-iname '*.babelrc' -o \
+		-iname '*.bak' -o \
+		-iname '*bower.json' -o \
+		-iname '*.c' -o \
+		-iname '*.cc' -o \
+		-iname '*.cpp' -o \
+		-iname '*.md' -o \
+		-iname '*.markdown' -o \
+		-iname '*.rst' -o \
+		-iname '*.nycrc' -o \
+		-iname '*.npmignore' -o \
+		-iname '*.editorconfig' -o \
+		-iname '*.el' -o \
+		-iname '*.eslintignore' -o \
+		-iname '*.eslintrc*' -o \
+		-iname '*.fimbullinter.yaml' -o \
+		-iname '*.gitattributes' -o \
+		-iname '*.gitmodules' -o \
+		-iname '*.gitkeep' -o \
+		-iname '*.h' -o \
+		-iname '*.html' -o \
+		-iname '*.jshintrc' -o \
+		-iname '*.jscs.json' -o \
+		-iname '*.log' -o \
+		-iname '*logo.svg' -o \
+		-iname '*.nvmrc' -o \
+		-iname '*.o' -o \
+		-iname '*package-lock.json' -o \
+		-iname '*.travis.yml' -o \
+		-iname '*.prettierrc' -o \
+		-iname '*.sh' -o \
+		-iname '*.tags*' -o \
+		-iname '*.Dockerfile*' -o \
+		-iname '*.tm_properties' -o \
+		-iname '*.wotanrc.yaml' -o \
+		-iname '*tsconfig.json' -o \
+		-iname '*yarn.lock' \
+		\) \
+		-delete
+
+find node_modules -type d \
+		\( \
+		-iwholename '*.github' -o \
+		-iwholename '*.tscache' -o \
+		-iwholename '*/man' -o \
+		-iwholename '*/test' -o \
+		-iwholename '*/scripts' -o \
+		-iwholename '*/git-hooks' -o \
+		-iwholename '*/linux-arm64' -o \
+		-iwholename '*/linux-armvy' -o \
+		-iwholename '*/linux-armv7' -o \
+		-iwholename '*/linux-x64' -o \
+		-iwholename '*/win32-ia32' -o \
+		-iwholename '*/win32-x64' -o \
+		-iwholename '*/darwin-x64*' \
+		\) \
+		-exec rm -rvf {} +
+}
+
+do_install() {
+	for dir in bin public lib locales node_modules; do
+		vcopy $dir usr/lib/hedgedoc
+	done
+	vinstall app.js 0644 usr/lib/hedgedoc
+	vinstall package.json 0644 usr/lib/hedgedoc
+	
+	# create symlink to sensible uploads directory
+	ln -sf "/var/lib/hedgedoc/uploads" "${DESTDIR}/usr/lib/hedgedoc/public/uploads"
+
+	# copy example json to /etc/
+	vinstall config.json.example 0640 usr/lib/hedgedoc config.json
+	vmkdir etc/hedgedoc
+	ln -sf "/usr/lib/hedgedoc/config.json" "${DESTDIR}/etc/hedgedoc/config.json"
+}
