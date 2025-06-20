@@ -2,11 +2,8 @@
 pkgname=hedgedoc
 version=1.10.3
 revision=1
-# build_style=gnu-configure
-#conf_files=""
-make_dirs="/var/"
-hostmakedepends="nodejs yarn"
-depends="yarn nodejs"
+hostmakedepends="yarn"
+depends="nodejs"
 short_desc="Web-based, Self-hosted, collaborative markdown editor"
 maintainer="Hendrik Boll <fanyx@posteo.net>"
 license="AGPL-3.0-or-later"
@@ -70,6 +67,7 @@ post_build() {
 		-iname '*.wotanrc.yaml' -o \
 		-iname '*tsconfig.json' -o \
 		-iname '*yarn.lock' \
+		-iname '*.node' \
 		\) \
 		-delete
 
