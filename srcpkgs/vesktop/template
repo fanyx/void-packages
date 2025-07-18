@@ -1,6 +1,6 @@
 # Template file for 'vesktop'
 pkgname=vesktop
-version=1.5.7
+version=1.5.8
 archs="x86_64"
 revision=1
 short_desc="Custom Desktop App aiming for improved performance and linux support"
@@ -8,7 +8,7 @@ maintainer="Hendrik Boll <fanyx@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/Vencord/Vesktop"
 distfiles="https://github.com/Vencord/Vesktop/releases/download/v${version}/vesktop_${version}_amd64.deb"
-checksum=9bf0d9fd85f88c1649bde946114042babc02d465b1e902c2ea2f48ef605f4869
+checksum=55832e33e5369133b7634616a0a4a4577e1284f363fe0827df75e4b701999704
 
 do_install() {
   vcopy opt /
