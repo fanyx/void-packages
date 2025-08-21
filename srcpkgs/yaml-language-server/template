@@ -1,0 +1,34 @@
+# Template file for 'yaml-language-server'
+pkgname=yaml-language-server
+version=1.17.0
+revision=1
+hostmakedepends="nodejs yarn"
+depends="nodejs"
+short_desc="Yaml Language Server"
+maintainer="Hendrik boll <fanyx@posteo.net>"
+license="MIT"
+homepage="https://github.com/redhat-developer/yaml-language-server"
+distfiles="https://github.com/redhat-developer/yaml-language-server/archive/refs/tags/${version}.tar.gz"
+checksum=c64c453533bd452e334179839db3aa9dd960f4b9e0f4f28f79bb85ca79b96764
+
+do_build() {
+	npm install
+	npm run build
+	rm -r node_modules
+	npm install --omit=dev --ignore-scripts
+	chmod +x bin/yaml-language-server
+}
+
+do_install() {
+	vlicense LICENSE
+
+	vmkdir usr/bin
+	vmkdir usr/lib/yaml-language-server
+	vcopy bin/ usr/lib/yaml-language-server
+	vcopy lib/ usr/lib/yaml-language-server
+	vcopy node_modules/ usr/lib/yaml-language-server
+
+	ln -sf /usr/lib/yaml-language-server/bin/yaml-language-server \
+		${DESTDIR}/usr/bin/yaml-language-server
+}
+
