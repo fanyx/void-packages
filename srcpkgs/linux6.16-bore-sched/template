@@ -1,7 +1,7 @@
 # Template file for 'linux6.16-bore-sched'
 pkgname=linux6.16-bore-sched
 version=6.16.0
-revision=1
+revision=2
 short_desc="Linux kernel and modules (${version%.*} series) - BORE Scheduler"
 maintainer="Hendrik Boll <fanyx@posteo.net>"
 license="GPL-2.0-only"
